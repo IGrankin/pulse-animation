@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   version = "1.3">
+   <BuildAction>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForRunning = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "586033F300DC6BE1ADB1C3BE"
+               BuildableName = "PulseAnimationTest.app"
+               BlueprintName = "PulseAnimationTest"
+               ReferencedContainer = "container:PulseAnimationTest.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <LaunchAction
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "586033F300DC6BE1ADB1C3BE"
+            BuildableName = "PulseAnimationTest.app"
+            BlueprintName = "PulseAnimationTest"
+            ReferencedContainer = "container:PulseAnimationTest.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+</Scheme>
