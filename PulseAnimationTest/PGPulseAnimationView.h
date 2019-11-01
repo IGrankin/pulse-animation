@@ -7,22 +7,27 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PGPulseAnimationView : NSObject
+@interface PGPulseAnimationView : UIView
+
+@property UIView *trackedView;
 
 //Color
 @property UIColor *pulseColor;
-@property CGFloat mainView_size;
-@property CGFloat mainView_expandingValue;
+@property CGFloat smallLayer_size;
+@property CGFloat smallLayer_expandingValue;
 
-@property CGFloat backView_expandingSize;
+@property CGFloat bigLayer_expandingSize;
 
 //Timing
-@property CGFloat mainView_expandingTime;
-@property CGFloat mainView_silenceTimeAfterExpanding;
-@property CGFloat mainView_backingToNormalTime;
-@property CGFloat mainView_silenceTimeAfterBackingToNormal;
+@property CGFloat smallLayer_expandingTime;
+@property CGFloat smallLayer_silenceTimeAfterExpanding;
+@property CGFloat smallLayer_backingToNormalTime;
+@property CGFloat smallLayer_silenceTimeAfterBackingToNormal;
 
-@property CGFloat backView_blowingTime;
+@property CGFloat bigLayer_blowingTime;
+
+-(void)startAnimation;
+-(void)endAnimation;
 
 //
 
