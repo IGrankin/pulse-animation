@@ -11,7 +11,7 @@
 
 
 @interface ViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *exampleButton;
+@property (strong, nonatomic) IBOutlet UIView *exampleButton;
 
 @end
 
@@ -25,17 +25,29 @@
     NSMutableArray *smallAnimations;
     CAAnimationGroup *_bigCircleAnimationGroup;
     NSMutableArray *bigAnimations;
-
     PGPulseAnimationView *_pulseView;
+    BOOL isPlaying;
+    IBOutlet UILabel *textLbl;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_exampleButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animationManagment)]];
+}
 
+- (void)animationManagment {
+    if (isPlaying) {
+        [self stopPlayingAnimation];
+        textLbl.text = @"Press for start pulse";
+    } else {
+        [self setupPulseView];
+        textLbl.text = @"Press for stop pulse";
+    }
+    isPlaying = !isPlaying;
+}
 
-
-    [self setupPulseView];
-//    [self setupAndLaunchAnimWithView:_exampleButton];
+- (void)stopPlayingAnimation {
+    [_pulseView endAnimation];
 }
 
 - (void)setupPulseView {
@@ -46,15 +58,15 @@
     _pulseView.smallLayer_expandingValue = 10;
     _pulseView.bigLayer_expandingSize = 50 * 4;
     //time
-    _pulseView.smallLayer_expandingTime = 0.25;
-    _pulseView.smallLayer_silenceTimeAfterExpanding = 0.1;
-    _pulseView.smallLayer_backingToNormalTime = 0.15;
-    _pulseView.smallLayer_silenceTimeAfterBackingToNormal = 0.35;
-    _pulseView.bigLayer_blowingTime = 0.5;
+    _pulseView.smallLayer_expandingTime = 0.35;
+    _pulseView.smallLayer_silenceTimeAfterExpanding = 0.2;
+    _pulseView.smallLayer_backingToNormalTime = 0.35;
+    _pulseView.smallLayer_silenceTimeAfterBackingToNormal = 0.55;
+    _pulseView.bigLayer_blowingTime = 0.7;
 
     //Constraints
     _pulseView.translatesAutoresizingMaskIntoConstraints = NO;
-    [_exampleButton addSubview:_pulseView];
+    [self.view insertSubview:_pulseView belowSubview:_exampleButton];
     [NSLayoutConstraint activateConstraints:@[
             [_pulseView.widthAnchor constraintEqualToConstant:0],
             [_pulseView.heightAnchor constraintEqualToConstant:0],
@@ -95,9 +107,7 @@
     [_roundedView.layer addSublayer:_backRoundedViewShapeLayer];
     _backRoundedViewShapeLayer.zPosition = view.layer.zPosition-2;
     _backRoundedViewShapeLayer.opacity = 0.9;
-
-
-    /////////////
+    
     _smallCircleAnimationGroup = [CAAnimationGroup new];
     _smallCircleAnimationGroup.duration = 2;
     _smallCircleAnimationGroup.animations = [self anim_appearance];
@@ -105,8 +115,6 @@
 
     _bigCircleAnimationGroup = [CAAnimationGroup new];
     _bigCircleAnimationGroup.duration = 1.25;
-
-
 }
 
 - (NSArray<CABasicAnimation *> *)anim_appearance{
@@ -122,7 +130,6 @@
     pathAnimation.fromValue = (id)_roundedViewShapeLayer.path;
     pathAnimation.toValue = (id)expandingPath.CGPath;
     _roundedViewShapeLayer.path = expandingPath.CGPath;
-//    [_roundedViewShapeLayer addAnimation:pathAnimation forKey:@"path"];
 
     CABasicAnimation *opacityAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
     opacityAnim.duration = timing;
@@ -130,7 +137,6 @@
     opacityAnim.fromValue = @(0.0);
     opacityAnim.toValue = @(0.65);
     _roundedViewShapeLayer.opacity = 0.65;
-//    [_roundedView.layer addAnimation:opacityAnim forKey:@"opacity"];
 
     return @[pathAnimation, opacityAnim];
 }

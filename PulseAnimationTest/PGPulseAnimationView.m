@@ -95,6 +95,13 @@
 }
 
 - (void)endAnimation {
+    [_roundedViewShapeLayer removeAllAnimations];
+    [_backRoundedViewShapeLayer removeAllAnimations];
+    [_roundedViewShapeLayer removeFromSuperlayer];
+    [_backRoundedViewShapeLayer removeFromSuperlayer];
+    _roundedViewShapeLayer = nil;
+    _backRoundedViewShapeLayer = nil;
+    
     //TODO: add end animation
 }
 
@@ -113,6 +120,7 @@
 
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
     pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = NO;
     pathAnimation.duration = duration;
     pathAnimation.beginTime = beginTime;
     pathAnimation.fromValue = (id) shapeLayer.path;
@@ -122,6 +130,7 @@
 
     CABasicAnimation *opacityAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
     opacityAnim.fillMode = kCAFillModeForwards;
+    opacityAnim.removedOnCompletion = NO;
     opacityAnim.duration = duration;
     opacityAnim.beginTime = beginTime;
     opacityAnim.fromValue = @(oldOpacity);
